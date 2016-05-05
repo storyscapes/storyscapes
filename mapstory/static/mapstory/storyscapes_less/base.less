@@ -71,7 +71,7 @@ a {
 }
 
 a:hover, a:focus, a:active{
-  color: darkgray;
+  color: #333;
   text-decoration: none
 }
 
@@ -82,6 +82,7 @@ footer {
   color:#777;
   background:#EB7F37;
   border-top:1px solid #555s;
+  font-weight: 300;
 }
 
 #footerRights {
@@ -98,6 +99,7 @@ p.credits a {
 
 /* ======== NAVBAR ======== */
 
+
 .navbar-inverse {
   background: white;
   border-bottom:1px solid gainsboro;
@@ -107,9 +109,9 @@ p.credits a {
 
 .navbar-brand {
   /* relative to geonode/css/base.css */
-  background: url('../../mapstory/img/mapstory_orange_logo.gif') no-repeat;
+  background: url('../img/storyscapes-icon.png') no-repeat;
   background-size: 100%;
-  width: 196px;
+  width: 40px;
   height: auto;
   margin-top: 10px;
 }
@@ -119,12 +121,12 @@ p.credits a {
 }
 
 .navbar-nav > li > a{
-  color: darkgray;
+  color: black;
   display: block;
-  font-size: 1em;
-  font-weight: 500;
+  font-size: 1.0em;
+  font-weight: 100;
   margin: 0;
-  padding-top:25px;
+  padding-top: 28px;
   vertical-align:middle;
 }
 
@@ -161,22 +163,22 @@ p.credits a {
 }
 
 .navbar .user-avatar {
-  padding: 15px 5px 0px 5px;
+  padding: 24px 5px 0px 5px;
 
 }
 
 .navbar-right > li > a {
-  padding: 15px 15px;
+  padding: 29px 12px 0 15px;
 }
 
 #admin-icon {
   padding-bottom: 15px;
-  padding-top: 25px;
+  padding-top: 28px;
 }
 
 #login-icon {
   #admin-icon;
-  font-size:1.3em;
+  font-size:1.0em;
   cursor:pointer
 }
 
@@ -185,7 +187,7 @@ p.credits a {
 /* ======== SLICES, SECTIONS, PANELS ========= */
 
 .slice {
-  padding:33px 0;
+  padding:0 0 33px 0;
   width: 100%;
   margin: 0;
   border: 0;
@@ -276,7 +278,7 @@ label.error {color:#fff;
 
 /*color4*/
 .color4, .slice.color4, .bulle.color4, .ctaBox.color4{
-  background-color:#EB7F37;
+  background-color:#162f43;
   color:#fff;
 }
 
@@ -393,7 +395,7 @@ label.error {color:#fff;
 
 
 small {
-  font-size: 80%;
+  font-size: 75%;
 }
 
 .btn-sm, .btn-group-sm>.btn {
@@ -507,10 +509,70 @@ small {
   margin-right: 5px;
 }
 
-select {
-  background: white;
-  border: 1px solid #999999;
-  height: 30px;
-  line-height: 30px;
+/* Custom
+----------------------- */
+
+.input-group-btn {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1;
+    text-align: center;
+    background-color: #eeeeee;
+    border-radius: 4px;
+}
+
+.navbar-default {
+  background-color: #fff;
+}
+
+.navbar-form {
+  padding-top: 5px;
+}
+
+.nav-tabs {
+  padding-bottom: 1px;
+    margin-bottom:22px;
+}
+
+.nav-tabs > li > a {
+  margin-right: 1px;
+  border-bottom: 4px solid transparent;
+}
+
+.nav-tabs > li > a:hover {
+    border-color: #fff;
+}
+
+#filter .btn:active, .btn.active {
+  color: #46443b;
+  cursor: default;
+  background-color: #ffffff;
+  border: 6px;
+  border-bottom: 4px solid #162f43;
+  box-shadow: none;
+  margin-top: 1px;
+  margin-right: 2px;
+  margin-bottom: 0px;
+  margin-left:1px;
+}
+
+.navbar-default .navbar-nav > li > a {
   color: black;
+}
+
+.slick-track h3 {
+  color: black;
+}
+
+.slick-track h5 {
+  line-height: 22px;
+}
+
+.ng-scope h5 {
+  line-height: 22px;
+}
+
+.btn-toolbar > h4 > a > .btn:hover, .btn:focus {
+  background-color: #333;
+  color:#fff !important;
 }

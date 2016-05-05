@@ -1,5 +1,8 @@
 module.exports = function(grunt) {
 
+var project = grunt.option('project') || 'less'
+
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
@@ -25,11 +28,11 @@ module.exports = function(grunt) {
         },
         files: [
           {
-            'geonode/css/base.css': 'mapstory/less/base.less',
+            'geonode/css/base.css': 'mapstory/' + project + '/base.less',
           },
           {
             expand: true,
-            cwd: 'mapstory/less',
+            cwd: 'mapstory/' + project,
             src: ['*.less', '!*-variables.less', '!maploom.less'],
             dest: 'mapstory/css/',
             ext: '.css'
