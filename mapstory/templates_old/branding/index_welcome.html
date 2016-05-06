@@ -1,32 +1,61 @@
 {% load i18n %}
 <div class="container">
     <div class="row" style="padding-top:-10px;">
-        <div class="col-sm-12">
-            <h1 class="text-center">{% trans "The atlas of change that everyone can edit" %}</h1>
+        <div class="col-sm-12" style="padding:15px;">
+            <h1 class="text-center">StoryScapes</h1>
         </div>
     </div>
     <div class="row" style="padding-top: 5px;">
-        <div class="input-group col-sm-6 col-sm-offset-3">
+        <div class="input-group col-sm-6 col-sm-offset-3 col-xs-offset-2">
             <form action="{% url "search" %}">
                 <div class="input-group">
                 {% if HAYSTACK_SEARCH %}
-                <input class="form-control" id="homepage_search" type="text" name="q" style="color:chocolate;background-color:whitesmoke;border:1px solid white" placeholder="{% trans "Explore MapStories and StoryLayers" %}">
+                <input class="form-control" id="homepage_search" type="text" name="q" style="color:chocolate;background-color:whitesmoke;border:1px solid white" placeholder="Explore StoryScapes and StoryLayers">
                 {% else %}
-                <input class="form-control" id="homepage_search" type="text" name="keywords__slug__in" style="color:chocolate;background-color:whitesmoke;border:1px solid white" placeholder="{% trans "Explore MapStories and StoryLayers" %}">
+                <input class="form-control" id="homepage_search" type="text" name="keywords__slug__in" style="color:chocolate;background-color:whitesmoke;border:1px solid white" placeholder="Explore StoryScapes and StoryLayers">
                 {% endif %}
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="submit" style="background-color:chocolate;color:white;border:1px solid white"><i class="fa fa-search"></i></button>
+                  <button class="btn" type="submit" style="background-color:#EEE;color:black;border:1px solid white"><i class="fa fa-search"></i></button>
                 </span>
                 </div>
             </form>
        </div>
     </div>
-    {% include "branding/index_menu.html" %}
-    <div class="row" style="padding-bottom:5px;">
+    <div class="row links" style="padding-top:15px;padding-bottom:5px color:#fff;">
+        <div class="col-sm-3">
+            <h3>
+                <a href="#" data-toggle="modal" data-target="#loginModal">
+                    Sign up now
+                </a>
+            </h3>
+        </div>
+        <div class="col-sm-3">
+            <h3>
+                <a href="" ng-controller="ImportController" ng-click="open(null, '{{ STATIC_URL }}importer/partials/uploadWizard.html', '{{ STATIC_URL }}mapstory/img/mapstory-icon.png', '{{STATIC_URL}}')">
+                    Upload Layers
+                </a>
+            </h3>
+        </div>
+        <div class="col-sm-3">
+            <h3>
+                <a href="{% url 'new_map' %}?tour">
+                    Compose Storyscape
+                </a>
+            </h3>
+        </div>
+        <div class="col-sm-3">
+            <h3>
+                <a href="{% url 'getpage' 'started' %}">
+                    Learn more
+                </a>
+            </h3>
+        </div>
+    </div>
+    <div class="row">
         <div class="localscroll" style="text-align:center">
             <!-- TODO: Link to mapstories is the section that doesn't exist yet -->
-            <a href="#mapstories" class="btn btn-circle btn-sm btn-default" style="background-color:#BD5E1B;color:white;border:1px solid transparent;border-radius:25%">
-            <i class="icon-down" id="mapstories"></i></a>
+            <a href="#mapstories" class="btn btn-circle btn-sm btn-default" style="background-color:#020F1A;color:white;border:1px solid transparent;border-radius:100%;padding:5px 8px"">
+            <i class="fa fa-chevron-down" id="mapstories"></i></a>
         </div>
     </div>
 </div>

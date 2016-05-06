@@ -1,0 +1,18 @@
+---
+- name: Provision a {{ application_name }} web server
+  hosts: mapstory
+  sudo: yes
+  sudo_user: root
+  remote_user: vagrant
+  vars:
+    - update_apt_cache: yes
+  vars_files:
+    - host_vars/base.yml
+    - host_vars/{{ env }}.yml
+
+  tasks:
+    - name: write project local settings
+      template: src=roles/web/files/local_settings.py.j2 dest={{ project_path }}/{{ project_name }}/settings/local_settings.py
+      sudo_user: '{{ application_user }}'
+      notify: restart django
+      tags: [settings]

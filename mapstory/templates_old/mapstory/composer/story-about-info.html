@@ -9,7 +9,6 @@
         <textarea id="abstract" class="form-control" type="text" ng-model="choice.abstract"></textarea>
     </div>
 
-    <!--p>Having this checked will allow the public to see this Storyscapes pulblished on the site. Being unchecked will keep this Storyscapes private until you are ready to publish.</p-->
     <!-- Temporarily removing this as it is not wired up -->
     <!--
     <div class="form-group">
@@ -18,8 +17,7 @@
                 <input id="published" name="published" ng-model="choice.publish" type="checkbox">
             </span>
             <span class="form-control">
-                <label>Publish Storyscapes</label>
-
+				{% include "branding/mapstory_composer_story-about-info.html %}
             </span>
         </div>
     </div>

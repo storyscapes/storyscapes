@@ -7,6 +7,7 @@
         'storytools.core.time',
         'storytools.core.mapstory',
         'storytools.core.pins',
+        'storytools.core.boxes',
         'storytools.core.ogc',
         'storytools.core.legend',
         'ui.bootstrap'
@@ -44,7 +45,7 @@
     });
 
     function MapManager($http, $q, $log, $rootScope, $location,
-                        StoryMap, stStoryMapBuilder, stStoryMapBaseBuilder, StoryPinLayerManager) {
+                        StoryMap, stStoryMapBuilder, stStoryMapBaseBuilder, StoryPinLayerManager, StoryBoxLayerManager) {
         this.storyMap = new StoryMap({target: 'map'});
         var _config = {};
         this.title = "";
@@ -53,7 +54,7 @@
         this.chapterCount = 1;
         var self = this;
         StoryPinLayerManager.map = self.storyMap;
-
+        StoryBoxLayerManager.map = self.storyMap;
         this.loadConfig = function(config, chapter){
             _config = config;
 
@@ -81,14 +82,11 @@
             if (options.id) {
                 stStoryMapBuilder.modifyStoryMap(self.storyMap, options);
 
-                var annotationsURL = "/maps/" + options.id + "/annotations";
-                if (annotationsURL.slice(-1) === '/') {
-                    annotationsURL = annotationsURL.slice(0, -1);
-                }
-                var annotationsLoad = $http.get(annotationsURL);
-                $q.all([annotationsLoad]).then(function(values) {
-                    var pins_geojson = values[0].data;
-                    StoryPinLayerManager.loadFromGeoJSON(pins_geojson, self.storyMap.getMap().getView().getProjection());
+                var annotationsLoad = $http.get("/maps/" + options.id + "/annotations");
+                var boxesLoad = $http.get("/maps/" + options.id + "/boxes");
+                $q.all([annotationsLoad, boxesLoad]).then(function(values) {
+                    StoryPinLayerManager.loadFromGeoJSON(values[0].data, self.storyMap.getMap().getView().getProjection(), true);
+                    StoryBoxLayerManager.loadFromGeoJSON(values[1].data, self.storyMap.getMap().getView().getProjection(), true);
                 });
             } else {
                 stStoryMapBaseBuilder.defaultMap(this.storyMap);
@@ -104,9 +102,8 @@
             });
             self.storyMap.getMap().addOverlay(popup);
 
-            // display popup on click
-            self.storyMap.getMap().on('click', function(evt) {
-                var feature = self.storyMap.getMap().forEachFeatureAtPixel(evt.pixel,
+            var displayPinInfo = function(pixel){
+                var feature = self.storyMap.getMap().forEachFeatureAtPixel(pixel,
                       function(feature, layer) {
                           return feature;
                       });
@@ -119,25 +116,38 @@
                         'placement': 'right',
                         'html': true,
                         'title': feature.get('title'),
-                        'content': feature.get('content')
+                        'content': feature.get('content') + feature.get('media')
                     });
                     $(element).popover('show');
                 } else {
                     $(element).popover('destroy');
                 }
+            };
+
+            // display popup on hover
+            self.storyMap.getMap().on('pointermove', function(evt) {
+                if (evt.dragging){
+                    return;
+                }
+                displayPinInfo(evt.pixel);
+            });
+
+            // display popup on click
+            self.storyMap.getMap().on('click', function(evt) {
+                displayPinInfo(evt.pixel);
             });
         };
         $rootScope.$on('$locationChangeSuccess', function() {
             var config = {% autoescape off %}{{ config }};{% endautoescape%}
-            var path = $location.path(), chapter = 1, matches;
+        var path = $location.path(), chapter = 1, matches;
 
-            if (path.indexOf('/chapter') === 0){
-                if ((matches = /\d+/.exec(path)) !== null) {
-                    chapter = matches[0]
-                }
+        if (path.indexOf('/chapter') === 0){
+            if ((matches = /\d+/.exec(path)) !== null) {
+                chapter = matches[0]
             }
+        }
 
-            self.loadConfig(config, chapter);
+        self.loadConfig(config, chapter);
     });
 }
 
@@ -170,13 +180,16 @@ module.controller('viewerController', function($scope, $location, $injector, $lo
     $scope.timeControlsManager = $injector.instantiate(TimeControlsManager);
     $scope.mapManager = MapManager;
 
+    var values = {annotations: [], boxes: [], data: []};
+
     $scope.nextChapter = function(){
         var nextChapter = Number(MapManager.storyChapter) + 1;
         if(nextChapter <= MapManager.chapterCount) {
-             $log.info("Going to Chapter ", nextChapter);
+            $log.info("Going to Chapter ", nextChapter);
+            $scope.timeControlsManager.timeControls.update(values);
             $location.path('/chapter/' + nextChapter);
         }else{
-             $location.path('');
+            $location.path('');
         }
 
     };
@@ -185,9 +198,10 @@ module.controller('viewerController', function($scope, $location, $injector, $lo
         var previousChapter = Number(MapManager.storyChapter) - 1;
         if(previousChapter > 0) {
             $log.info("Going to the Chapter ", previousChapter);
+            $scope.timeControlsManager.timeControls.update(values);
             $location.path('/chapter/' + previousChapter);
         }else{
-             $location.path('');
+            $location.path('');
         }
 
     };

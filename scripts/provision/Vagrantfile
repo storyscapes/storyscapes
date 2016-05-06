@@ -53,7 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
  		ansible.sudo = true
 		ansible.host_key_checking = false
 		ansible.inventory_path = "inventory.ini"
-		ansible.playbook = "main.yml"
+		ansible.playbook = "settings.yml"
 		ansible.limit = "mapstory"
 		#ansible.verbose = "vvv"
     end
