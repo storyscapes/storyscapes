@@ -1,1 +1,1 @@
-from mapstory.settings.storyscapes_settings import *
+from mapstory.settings.storyscapes import *
