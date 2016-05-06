@@ -19,4 +19,4 @@ this {% ext_link 'wiki' 'license_and_copyright' 'license' %}.
 
 Please do not reply to this e-mail.  If you have questions about
 this invite, please e-mail the person who sent it or
-info@mapstory.org
+info@Storyscapes.org

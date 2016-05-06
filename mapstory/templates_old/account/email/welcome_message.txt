@@ -9,10 +9,10 @@ Here's how you can get started:
 
 Learn
 
-MapStorytelling involves using open data, maps and your own reflection to illuminate change in place over time. It's something anyone can learn, and your peers are adding more resources all the time to help you along.
+Storyscapestelling involves using open data, maps and your own reflection to illuminate change in place over time. It's something anyone can learn, and your peers are adding more resources all the time to help you along.
 
 Learn the basics:
-http://mapstory.org/getskills
+http://Storyscapes.org/getskills
 
 ------------------
 
@@ -21,7 +21,7 @@ Share What You Know
 There's three ways to share on Storyscapes. Just remember A, B, C. First, you can add new spatially and temporally enabled datasets, which we call StoryLayers. Second, you can build MapStories using StoryLayers and other narrative elements that you would like. Finally, you can curate content that appears on Storyscapes to improve its quality and accuracy.
 
 Start sharing on Storyscapes:
-http://mapstory.org/
+http://Storyscapes.org/
 
 ------------------
 
@@ -30,10 +30,10 @@ Build the Community
 Storyscapes is a nonprofit open educational resource. We rely on users like you to launch new initiatives, develop new tools and raise funds to keep the project going. So, get involved and build the future of Storyscapes that you want to see!
 
 Get involved with the community:
-http://wiki.mapstory.org
+http://wiki.Storyscapes.org
 
 ------------------
 
 
-Thanks for joining us, and happy MapStorytelling!
+Thanks for joining us, and happy Storyscapestelling!
 The Storyscapes Team
