@@ -4,5 +4,5 @@ SITENAME = 'Storyscapes'
 
 
 TEMPLATE_DIRS = (
-    os.path.join(LOCAL_ROOT, "templates_old"),
+    os.path.join(LOCAL_ROOT, "templates_storyscapes"),
 ) + TEMPLATE_DIRS
