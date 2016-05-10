@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from mapstory.settings.storyscapes import *
+=======
+from mapstory.settings import *
+>>>>>>> master
 import dj_database_url
 import json
 
