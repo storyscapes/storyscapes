@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 
-var project = grunt.option('project') || 'less'
+var project = grunt.option('project') || 'less';
 
 
   grunt.initConfig({
