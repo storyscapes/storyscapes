@@ -16,6 +16,13 @@ class Command(BaseCommand):
             dest = 'mapstory',
             default=False
         ),
+        make_option(
+            '-r', 
+            '--reload', 
+            action='store_true',
+            dest = 'reload',
+            default=False
+        ),        
     )
 
     def collect_static(self):
@@ -29,11 +36,11 @@ class Command(BaseCommand):
         self.collectstatic_process.wait()
 
 
-    def start_grunt(self, sw_project):
+    def start_grunt(self, mapstory):
         self.stdout.write('>>> Starting grunt')
         file_path = os.path.join(settings.LOCAL_ROOT, 'static', 'gruntfile.js')
         command = 'grunt --gruntfile=%s less ' % (file_path)
-        if not sw_project:
+        if not mapstory:
             command += '--project storyscapes'
 
         self.grunt_process = subprocess.Popen(
@@ -49,9 +56,9 @@ class Command(BaseCommand):
         self.stdout.write('>>> Closing grunt process')
 
 
-    def run_server(self, sw_project):
+    def run_server(self, mapstory):
         command = 'python manage.py runserver 0.0.0.0:8500 '
-        if not sw_project:
+        if not mapstory:
             command += '--settings=mapstory.settings.storyscapes'
 
         self.runserver_process = subprocess.Popen(
@@ -63,7 +70,28 @@ class Command(BaseCommand):
         self.runserver_process.wait()
 
 
+    def install_maploom(self, mapstory):
+        branch = 'mapstory'
+        if not mapstory:
+            branch = 'storyscapes-v1'
+        command = 'pip install -e git://github.com/mapstory/django-maploom.git@%s#egg=maploom' % (branch)
+        print command
+
+        self.maploom_process = subprocess.Popen(
+            [command],
+            shell=True,
+            stdin=subprocess.PIPE,
+            stderr=self.stderr,
+        )
+        self.maploom_process.wait()
+
+
     def handle(self, *args, **options):
-        self.start_grunt(options['mapstory'])
+        project = options['mapstory']
+
+        if options['reload']:
+            self.start_grunt(project)
+            self.install_maploom(project)
+
         self.collect_static()
-        self.run_server(options['mapstory'])
+        self.run_server(project)
